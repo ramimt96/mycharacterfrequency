@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class MyShapeApplication extends Application {
+public class MyCharacterFrequencyApplication extends Application {
     Integer N;              // Number of events [chars] to display
     Integer M;              // Max of events [chars] to display [26]
 
@@ -35,10 +35,6 @@ public class MyShapeApplication extends Application {
     //Inputs to dialog boxes
     Boolean isPiechart;
     List<String> piechartInputs = new ArrayList();
-
-
-
-
 
 
     public VBox addLeftVBox(double widthLeftCanvas, double heightCanvas, TilePane TP, MyColor color){
@@ -68,7 +64,7 @@ public class MyShapeApplication extends Application {
 
         String[] nameImages = new String[] {"Circle", "Rectangle", "Intersection", "Pie"};
         String pathFile = "C:\\Users\\rtara\\OneDrive\\Documents\\CCNY\\2023 Summer Term\\CSC 221 Software Design\\" +
-                "Assignment 3 - mycharacterfrequency\\Shapes\\";
+                "Assignment 3 - mycharacterfrequency\\mycharacterfrequency\\Shapes\\";
 
         Deque<MyShape> stackMyShapes = new ArrayDeque<>();
         for (String nameImage : nameImages) {
@@ -115,8 +111,6 @@ public class MyShapeApplication extends Application {
         MyPoint center = new MyPoint(0.5 * widthCanvas, 0.5 * heightCanvas, null);
         double diameterPieChart = 0.75 * Math.min(widthCanvas, heightCanvas);
 
-        MyColor colorCanvas = MyColor.GREY;
-
         // Build the pie chart
         HistogramAlphaBet.MyPieChart pieChart = H.new MyPieChart(N, M, center, diameterPieChart, diameterPieChart, startAngle);
 
@@ -146,22 +140,32 @@ public class MyShapeApplication extends Application {
 
         String information;
 
+        Map<Character, Integer> sortedFrequency = H.sortDownFrequency();
+
         Canvas CV = new Canvas(widthCanvas, heightCanvas);
         GraphicsContext GC = CV.getGraphicsContext2D();
 
-        // Paint background of the canvas
-        MyColor colorLeftCanvas = MyColor.LINEN;
-        GC.setFill(colorLeftCanvas.getJavaFXColor());
+        //paint background of canvas
+        MyColor colorRightCanvas = MyColor.LINEN;
+        GC.setFill(colorRightCanvas.getJavaFXColor());
         GC.fillRect(0.0, 0.0, widthCanvas, heightCanvas);
 
-        // Output character frequencies
+        //output character frequencies
         double xText = 20; double yText = 0.03625 * heightCanvas;
         MyColor colorStroke = MyColor.GRAY;
         GC.setStroke(colorStroke.invertColor());
         GC.setFont(Font.font ("Calibri", 13));
         GC.strokeText("Frequency: Cumulative " + H.getCumulativeFrequency(), xText, yText);
 
-        Map<Character, Integer> sortedFrequency = H.sortDownFrequency();
+        //output calculated and sum of frequencies
+        System.out.println("\nFrequency of Characters");
+        sortedFrequency.forEach((K, V) -> System.out.println(K + ": " + V));
+        System.out.println("\nCumulative Frequency: " + H.getCumulativeFrequency());
+
+        //output calculated and sum of probabilities
+        System.out.println("\nSorted Probability of Characters");
+        System.out.println(H.sortDownProbability());
+        System.out.println("\nSum of Probabilities: " + H.getSumOfProbability());
 
         double yStep = yText;
         for(Character K : sortedFrequency.keySet()){
@@ -250,7 +254,6 @@ public class MyShapeApplication extends Application {
         });
     }
 
-
     public void dialogCircle(double widthCenterCanvas, double heightCenterCanvas, BorderPane BP, MyColorPalette CP,
                              TilePane TP, Deque<MyShape> stackMyShapes) {
         Dialog<List<String>> dialog = new Dialog<>();
@@ -316,7 +319,6 @@ public class MyShapeApplication extends Application {
         });
     }
 
-
     public void dialogIntersection(double widthCenterCanvas, double heightCenterCanvas, BorderPane BP,
                                    MyColorPalette CP, TilePane TP, Deque<MyShape> stackMyShapes) {
         Dialog dialog = new Dialog<>();
@@ -356,7 +358,6 @@ public class MyShapeApplication extends Application {
         });
     }
 
-
     public void dialogPiechart(double widthCenterCanvas, double heightCenterCanvas, double widthRightCanvas, BorderPane BP) {
         Dialog<List<String>> dialog = new Dialog<>();
         dialog.setTitle("Pie Chart");
@@ -379,12 +380,16 @@ public class MyShapeApplication extends Application {
 
         gridDialog.add(new Label("Display"), 0, 0);
         gridDialog.add(numberEvents, 1, 0);
+        gridDialog.add(new Label("Number of character slices to display"), 2, 0);
         gridDialog.add(new Label("Total"), 0, 1);
         gridDialog.add(totalNumberEvents, 1, 1);
+        gridDialog.add(new Label("Max number of characters [26]"), 2, 1);
         gridDialog.add(new Label("Starting Angle"), 0, 2);
         gridDialog.add(startingAngle, 1, 2);
+        gridDialog.add(new Label("Starting angle of first slice [in degrees]"), 2, 2);
         gridDialog.add(new Label("Title"), 0, 3);
         gridDialog.add(title, 1, 3);
+        gridDialog.add(new Label("Title of book"), 2, 3);
 
         dialog.getDialogPane().setContent(gridDialog);
 
@@ -411,8 +416,8 @@ public class MyShapeApplication extends Application {
             this.M = Integer.parseInt(piechartInputs.get(1));
             this.startAngle = Double.parseDouble(piechartInputs.get(2));
             this.Title = piechartInputs.get(3);
-            this.filename = "C:\\Users\\rtara\\OneDrive\\Documents\\CCNY\\2023 Summer Term\\CSC 221 Software Design\\" +
-                    "Assignment 3 - mycharacterfrequency\\Texts\\" + Title + ".txt";
+            this.filename = "C:\\Users\\rtara\\OneDrive\\Documents\\CCNY\\2023 Summer Term\\CSC 221 Software Design" +
+                    "\\Assignment 3 - mycharacterfrequency\\mycharacterfrequency\\Texts\\" + Title + ".txt";
 
             //open, read, close file
             openFile();
@@ -427,7 +432,6 @@ public class MyShapeApplication extends Application {
             BP.setRight(addCanvasLegend(widthRightCanvas, heightCenterCanvas, H));
         });
     }
-
 
 
     public void openFile() {
@@ -461,12 +465,13 @@ public class MyShapeApplication extends Application {
         if (input != null) input.close();
     }
 
+
     @Override
     public void start(Stage stage) throws FileNotFoundException {
         BorderPane BP = new BorderPane();
 
-        double widthCanvas = 800.0;
-        double heightCanvas = 600.0;
+        double widthCanvas = 1000.0;
+        double heightCanvas = 500.0;
 
         double widthLeftCanvas = 0.3 * widthCanvas;
         double heightTopCanvas = 0.15 * heightCanvas;
@@ -482,7 +487,7 @@ public class MyShapeApplication extends Application {
         BP.setLeft(addLeftVBox(widthLeftCanvas, heightCenterCanvas, TP, MyColor.BLACK));
 
         Scene SC = new Scene(BP, widthCanvas, heightCanvas, null);
-        stage.setTitle("MyShape!");
+        stage.setTitle("MyApplication!");
         stage.setScene(SC);
         stage.show();
     }

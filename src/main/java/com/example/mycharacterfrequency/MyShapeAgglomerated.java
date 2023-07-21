@@ -19,7 +19,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.sql.SQLException;
 import java.util.*;
 
 public class MyShapeAgglomerated extends Application{
@@ -74,8 +73,9 @@ public class MyShapeAgglomerated extends Application{
         HB.setPrefWidth(widthTopCanvas);
         HB.setPadding(new Insets(5, 5, 5, 5));
 
-        String [] nameImages = MyShapeImage.getMyImageNames();
-        String pathFile = "C:\\Users\\Admin\\Desktop\\CCNY Classes\\CSc 22100 Software Design Laboratory\\Lectures\\Intellij Projects\\MyShape\\Geometric Shapes\\";
+        String[] nameImages = new String[] {"Circle", "Rectangle", "Intersection", "Pie"};
+        String pathFile = "C:\\Users\\rtara\\OneDrive\\Documents\\CCNY\\2023 Summer Term\\CSC 221 Software Design\\" +
+                "Assignment 3 - mycharacterfrequency\\mycharacterfrequency\\Shapes\\";
 
         Deque<MyShape> stackMyShapes = new ArrayDeque<>();
         for (String nameImage : nameImages){
@@ -85,7 +85,7 @@ public class MyShapeAgglomerated extends Application{
             // Draw a geometric shape on mouse click: Lambda expression
             geometricImage.setOnMouseClicked(e -> {
                 switch (nameImage) {
-                    case "Arc":     // MyArc object
+                    /*case "Arc":     // MyArc object
                         dialogArc(widthCenterCanvas, heightCenterCanvas, BP, CP, TP, stackMyShapes);
                         break;
 
@@ -99,30 +99,30 @@ public class MyShapeAgglomerated extends Application{
 
                     case "Polygon": // MyPolygon object
                         dialogPolygon(widthCenterCanvas, heightCenterCanvas, BP, CP, TP, stackMyShapes);
-                        break;
+                        break;*/
 
                     case "Rectangle":   // MyRectangle object
                         dialogRectangle(widthCenterCanvas, heightCenterCanvas, BP, CP, TP, stackMyShapes);
                         break;
 
-                    case "Triangle":    // MyTriangle object
+                    /*case "Triangle":    // MyTriangle object
                         dialogTriangle(widthCenterCanvas, heightCenterCanvas, BP, CP, TP, stackMyShapes);
-                        break;
+                        break;*/
 
                     case "Intersection":// Intersection of 2 MyShape objects
                         dialogIntersection(widthCenterCanvas, heightCenterCanvas, BP, CP, TP, stackMyShapes);
                         break;
 
-                    case "Subtraction":// Subtraction of 2 MyShape objects
+                    /*case "Subtraction":// Subtraction of 2 MyShape objects
                         dialogSubtraction(widthCenterCanvas, heightCenterCanvas, BP, CP, TP, stackMyShapes);
-                        break;
+                        break;*/
 
                     case "Book":        // Book analytics
                         dialogBookAnalytics(widthCenterCanvas, heightCenterCanvas, widthRightCanvas, BP);
                         break;
 
-                    case "SQL":         // Database
-                        dialogSQL(widthCenterCanvas, heightCenterCanvas, widthRightCanvas, BP);
+                    /*case "SQL":         // Database
+                        dialogSQL(widthCenterCanvas, heightCenterCanvas, widthRightCanvas, BP);*/
                 }
             });
 
@@ -138,7 +138,7 @@ public class MyShapeAgglomerated extends Application{
         return S1.drawIntersectMyShapes(widthCenterCanvas, heightCenterCanvas, S1, S2, color);
     }
 
-    public Canvas addCanvasBarChart(double widthCanvas, double heightCanvas, HistogramAlphaBet H){
+    /*public Canvas addCanvasBarChart(double widthCanvas, double heightCanvas, HistogramAlphaBet H){
 
         Canvas CV = new Canvas(widthCanvas, heightCanvas);
         GraphicsContext GC = CV.getGraphicsContext2D();
@@ -164,7 +164,7 @@ public class MyShapeAgglomerated extends Application{
         GC.strokeText(Title, xText, yText);
 
         return CV;
-    }
+    }*/
 
     public Canvas addCanvasPieChart(double widthCanvas, double heightCanvas, HistogramAlphaBet H){
 
@@ -236,7 +236,7 @@ public class MyShapeAgglomerated extends Application{
     }
 
     // Dialogs
-    public void dialogArc(double widthCenterCanvas, double heightCenterCanvas, BorderPane BP, MyColorPalette CP, TilePane TP, Deque<MyShape> stackMyShapes){
+    /*public void dialogArc(double widthCenterCanvas, double heightCenterCanvas, BorderPane BP, MyColorPalette CP, TilePane TP, Deque<MyShape> stackMyShapes){
 
         Dialog<List<String>> dialog = new Dialog<>();
         dialog.setTitle("MyOval");
@@ -536,7 +536,7 @@ public class MyShapeAgglomerated extends Application{
             BP.setCenter(CV);
         });
     }
-
+*/
     public void dialogRectangle(double widthCenterCanvas, double heightCenterCanvas, BorderPane BP, MyColorPalette CP, TilePane TP, Deque<MyShape> stackMyShapes){
 
         Dialog<List<String>> dialog = new Dialog<>();
@@ -611,7 +611,7 @@ public class MyShapeAgglomerated extends Application{
         });
     }
 
-    public void dialogTriangle(double widthCenterCanvas, double heightCenterCanvas, BorderPane BP, MyColorPalette CP, TilePane TP, Deque<MyShape> stackMyShapes){
+    /*public void dialogTriangle(double widthCenterCanvas, double heightCenterCanvas, BorderPane BP, MyColorPalette CP, TilePane TP, Deque<MyShape> stackMyShapes){
 
         Dialog<List<String>> dialog = new Dialog<>();
         dialog.setTitle("MyTriangle");
@@ -683,7 +683,7 @@ public class MyShapeAgglomerated extends Application{
 
             BP.setCenter(CV);
         });
-    }
+    }*/
 
     public void dialogIntersection(double widthCenterCanvas, double heightCenterCanvas, BorderPane BP, MyColorPalette CP, TilePane TP, Deque<MyShape> stackMyShapes){
 
@@ -720,7 +720,7 @@ public class MyShapeAgglomerated extends Application{
         });
     }
 
-    public void dialogSubtraction(double widthCenterCanvas, double heightCenterCanvas, BorderPane BP, MyColorPalette CP, TilePane TP, Deque<MyShape> stackMyShapes){
+    /*public void dialogSubtraction(double widthCenterCanvas, double heightCenterCanvas, BorderPane BP, MyColorPalette CP, TilePane TP, Deque<MyShape> stackMyShapes){
 
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Subtraction of 2 MyShape Objects");
@@ -753,7 +753,7 @@ public class MyShapeAgglomerated extends Application{
                 });
             }
         });
-    }
+    }*/
 
     public void dialogBookAnalytics(double widthCenterCanvas, double heightCenterCanvas, double widthRightCanvas, BorderPane BP){
 
@@ -818,7 +818,7 @@ public class MyShapeAgglomerated extends Application{
         });
     }
 
-    public void dialogSQL(double widthCenterCanvas, double heightCenterCanvas, double widthRightCanvas, BorderPane BP){
+    /*public void dialogSQL(double widthCenterCanvas, double heightCenterCanvas, double widthRightCanvas, BorderPane BP){
 
         Dialog<List<String>> dialog = new Dialog<>();
         dialog.setTitle("SQL");
@@ -975,12 +975,12 @@ public class MyShapeAgglomerated extends Application{
         // Create-return a histogram
         return new HistogramAlphaBet(AG);
 
-        /*
+        *//*
         // Alternatively apply the constructor using the ResultSet object
         ResultSet RS = aggregateGrades.getAggregateGrades(connection, nameToTable);
         return new HistogramAlphaBet(RS);
-        */
-    }
+        *//*
+    }*/
 
     public void toggleGroupChart(double widthCenterCanvas, double heightCenterCanvas, double widthRightCanvas, HistogramAlphaBet H, BorderPane BP) throws FileNotFoundException {
 
@@ -1002,13 +1002,13 @@ public class MyShapeAgglomerated extends Application{
         gridDialog.setVgap(10);
         gridDialog.setPadding(new Insets(20, 150, 10, 10));
 
-        String pathFile = "C:\\Users\\Admin\\Desktop\\CCNY Classes\\CSc 22100 Software Design Laboratory\\Lectures\\Intellij Projects\\MyShape\\Geometric Shapes\\";
+        /*String pathFile = "C:\\Users\\Admin\\Desktop\\CCNY Classes\\CSc 22100 Software Design Laboratory\\Lectures\\Intellij Projects\\MyShape\\Geometric Shapes\\";
         String nameFile = pathFile + "Barchart" + ".PNG";
         gridDialog.add(new ImageView(new Image(new FileInputStream(nameFile), 100, 100,true,false)), 0, 1);
         gridDialog.add(radioBarchart, 1, 1);
 
         nameFile = pathFile + "Piechart" + ".PNG";
-        gridDialog.add(new ImageView(new Image(new FileInputStream(nameFile), 100, 100,true,false)), 2, 1);
+        gridDialog.add(new ImageView(new Image(new FileInputStream(nameFile), 100, 100,true,false)), 2, 1);*/
         gridDialog.add(radioPiechart, 3, 1);
 
         // Set the button types.
@@ -1025,9 +1025,6 @@ public class MyShapeAgglomerated extends Application{
                 this.isPiechart = radioPiechart.isSelected();
                 if (this.isPiechart) {
                     dialogPiechart(widthCenterCanvas, heightCenterCanvas, widthRightCanvas, H, BP);
-                }
-                else {
-                    dialogBarchart(widthCenterCanvas, heightCenterCanvas, widthRightCanvas, H, BP);
                 }
             }
             return null;
@@ -1193,12 +1190,12 @@ public class MyShapeAgglomerated extends Application{
 
         BorderPane BP = new BorderPane();
 
-        double widthLeftVBox = 0.50 * widthCenterCanvas;
-        double heightTopHBox = 0.225 * heightCenterCanvas;
-        double widthRightCanvas = 0.40 * widthCenterCanvas;
+        double widthLeftVBox = 0.50 * widthCenterCanvas;        //250
+        double heightTopHBox = 0.225 * heightCenterCanvas;      //90
+        double widthRightCanvas = 0.40 * widthCenterCanvas;     //200
 
-        double widthBorderPane = widthCenterCanvas + widthLeftVBox + widthRightCanvas;
-        double heightBorderPane = heightCenterCanvas + heightTopHBox;
+        double widthBorderPane = widthCenterCanvas + widthLeftVBox + widthRightCanvas;      //950
+        double heightBorderPane = heightCenterCanvas + heightTopHBox;                       //490
 
         MyColorPalette CP = new MyColorPalette(widthLeftVBox, heightCenterCanvas);
         TilePane TP = CP.getPalette();
