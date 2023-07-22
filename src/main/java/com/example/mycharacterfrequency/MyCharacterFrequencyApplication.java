@@ -437,8 +437,7 @@ public class MyCharacterFrequencyApplication extends Application {
     public void openFile() {
         try {
             input = new Scanner(Paths.get(filename));
-        }
-        catch (IOException ioException) {
+        } catch (IOException ioException) {
             System.err.println("File is not found");
         }
     }
@@ -451,11 +450,9 @@ public class MyCharacterFrequencyApplication extends Application {
             while (input.hasNext()) {
                 w += input.nextLine().replaceAll("[^a-zA-Z]", "").toLowerCase();
             }
-        }
-        catch (NoSuchElementException elementException) {
+        } catch (NoSuchElementException elementException) {
             System.err.println("Invalid input! Terminating...");
-        }
-        catch (IllegalStateException stateException) {
+        } catch (IllegalStateException stateException) {
             System.err.println("Error processing file! Terminating...");
         }
         return w;
@@ -464,7 +461,6 @@ public class MyCharacterFrequencyApplication extends Application {
     public void closeFile() {
         if (input != null) input.close();
     }
-
 
     @Override
     public void start(Stage stage) throws FileNotFoundException {
@@ -491,7 +487,6 @@ public class MyCharacterFrequencyApplication extends Application {
         stage.setScene(SC);
         stage.show();
     }
-
     public static void main(String[] args) {
         launch(args);
     }

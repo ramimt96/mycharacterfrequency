@@ -107,7 +107,6 @@ public class HistogramAlphaBet {
         return output;
     }
 
-
     public class MyPieChart {
         Map<Character, Slice> slices = new HashMap<>();
 
@@ -116,7 +115,6 @@ public class HistogramAlphaBet {
         MyPoint center;         // Center of pie chart
         double width, height;   // Width and height of elliptic chart
         double rotateAngle;     // The starting angle [in degrees] of first slice
-
 
         MyPieChart(int N, int M, MyPoint center, double width, double height, double rotateAngle) {
             this.N = N; this.M = M;
